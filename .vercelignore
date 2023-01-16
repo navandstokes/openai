@@ -1,0 +1,5 @@
+.env
+.env.build
+.env.local
+*.sublime-project
+*.sublime-workspace

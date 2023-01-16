@@ -1,16 +1,25 @@
 {
-  "name": "openai-quickstart-node",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "^13.1.1",
-    "openai": "^3.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  }
+    "name": "openai-quickstart-node",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
+    },
+    "dependencies": {
+        "classnames": "^2.3.2",
+        "next": "^13.1.1",
+        "openai": "^3.1.0",
+        "react": "^18.2.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.13",
+        "eslint": "^8.32.0",
+        "eslint-config-next": "^13.1.2",
+        "postcss": "^8.4.21",
+        "prettier": "^2.8.3",
+        "tailwindcss": "^3.2.4"
+    }
 }

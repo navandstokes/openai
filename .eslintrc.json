@@ -1,0 +1,70 @@
+{
+	"extends": ["eslint:recommended", "next"],
+	"env": {
+		"browser": true,
+		"node": true,
+		"es6": true
+	},
+	"parser": "@babel/eslint-parser",
+	"rules": {
+		// supress errors for not resolving, bug here can't get to work with nextjs baseURL
+		"import/no-unresolved": [0],
+		// suppres errors for proptype checking
+		"react/prop-types": [0],
+		// suppress errors for missing 'import React' in files
+		"react/react-in-jsx-scope": "off",
+		// allow jsx syntax in js files (for next.js project)
+		"react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }], //should add ".ts" if typescript project,
+		// allow next.js Link/a
+		"jsx-a11y/anchor-is-valid": [
+			"error",
+			{
+				"components": ["Link"],
+				"specialLink": ["hrefLeft", "hrefRight"],
+				"aspects": ["invalidHref"]
+			}
+		],
+		// a11y rules
+		"jsx-a11y/accessible-emoji": [1],
+		"jsx-a11y/click-events-have-key-events": [1],
+		"jsx-a11y/anchor-has-content": [1],
+		"jsx-a11y/aria-props": [1],
+		"jsx-a11y/html-has-lang": [1],
+		"jsx-a11y/iframe-has-title": [1],
+		"jsx-a11y/label-has-associated-control": [1],
+		"jsx-a11y/mouse-events-have-key-events": [1],
+		"jsx-a11y/role-has-required-aria-props": [1],
+		// Airbnb style guide - warnings only
+		// https://github.com/airbnb/javascript/tree/master/react
+		"react/no-multi-comp": [1, { "ignoreStateless": true }],
+		"react/forbid-prop-types": [1],
+		"react/prefer-es6-class": [1],
+		"react/prefer-stateless-function": [1],
+		"react/jsx-pascal-case": [1],
+		"react/jsx-closing-tag-location": [1],
+		"react/jsx-closing-bracket-location": [1],
+		"react/jsx-props-no-multi-spaces": [1],
+		"react/jsx-tag-spacing": [1],
+		"react/jsx-curly-spacing": [1],
+		"react/jsx-boolean-value": [1],
+		"jsx-a11y/alt-text": [1],
+		"jsx-a11y/img-redundant-alt": [1],
+		"jsx-a11y/aria-role": [1],
+		"jsx-a11y/no-access-key": [1],
+		"react/no-array-index-key": [1],
+		"react/no-string-refs": [1],
+		"react/jsx-wrap-multilines": [1],
+		"react/self-closing-comp": [1],
+		"react/jsx-no-bind": [1],
+		"react/require-render-return": [1],
+		"react/no-is-mounted": [1],
+		"react/sort-prop-types": [1],
+		"react/jsx-no-target-blank": [1],
+		"react/jsx-no-useless-fragment": [1],
+		"react/jsx-equals-spacing": [2, "never"],
+		// Additional personal rules
+		"react/jsx-fragments": [1, "syntax"],
+		"react/jsx-one-expression-per-line": [0],
+		"no-mixed-spaces-and-tabs": ["error", "smart-tabs"]
+	}
+}

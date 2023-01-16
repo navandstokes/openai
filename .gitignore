@@ -17,15 +17,24 @@
 
 # misc
 .DS_Store
+*.pem
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# env files
+# local env files
 .env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env.*
+
+# vercel
+.vercel
+
+# Sublime
+*.sublime-project
+*.sublime-workspace
+.todo
+.log
+.cache
+.vercel
