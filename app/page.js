@@ -2,12 +2,15 @@
 
 import { useState, useCallback } from "react"
 import { useForm } from "react-hook-form"
+import { Loader } from "components/Loader"
 
 export default function Page() {
     const { register, handleSubmit } = useForm()
     const [result, setResult] = useState("")
+    const [status, setStatus] = useState({ loading: false, message: "" })
 
     const onSubmit = useCallback(async (data) => {
+        setStatus((prev) => ({ ...prev, loading: true }))
         try {
             const response = await fetch("/api/generate", {
                 method: "POST",
@@ -26,8 +29,10 @@ export default function Page() {
             }
 
             setResult(res.result)
+            setStatus((prev) => ({ ...prev, loading: false }))
         } catch (error) {
             console.error(error)
+            setStatus((prev) => ({ ...prev, loading: false }))
             alert(error.message)
         }
     }, [])
@@ -45,9 +50,9 @@ export default function Page() {
                     Submit
                 </button>
             </form>
-            {result && (
-                <p className="p-3 px-4 rounded-md bg-white/[.02]">{result}</p>
-            )}
+            <div className="p-3 px-4 rounded-md bg-white/[.02]">
+                {status?.loading ? <Loader /> : result ? <p>{result}</p> : null}
+            </div>
         </div>
     )
 }
