@@ -16,7 +16,7 @@ export default async function (req, res) {
         return
     }
 
-    const { model, max_tokens, temperature, top_p } = req.body
+    const { n, size } = req.body
 
     const prompt = req.body.prompt || ""
     if (prompt.trim().length === 0) {
@@ -29,14 +29,12 @@ export default async function (req, res) {
     }
 
     try {
-        const completion = await openai.createCompletion({
-            model: model ? model : "text-davinci-003",
+        const response = await openai.createImage({
             prompt: prompt,
-            temperature: temperature ? parseFloat(temperature) : 0.7,
-            max_tokens: max_tokens ? parseInt(max_tokens) : 256,
-            top_p: top_p ? parseFloat(top_p) : 1,
+            n: n ? parseInt(n) : 1,
+            size: size ? size : "256x256",
         })
-        res.status(200).json({ result: completion.data.choices[0].text })
+        res.status(200).json({ result: response.data.data })
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
