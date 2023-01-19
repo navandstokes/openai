@@ -59,13 +59,16 @@ export default function Page() {
         <div className="max-w-screen-md mx-auto flex flex-col gap-4 p-6 py-20 lg:pt-64 min-h-screen">
             <Tabs
                 tabs={[
-                    { title: "Text", value: "text" },
-                    { title: "Code", value: "code" },
-                    { title: "Image", value: "image" },
+                    { title: "Text", value: "text", handleClick: clearResult },
+                    { title: "Code", value: "code", handleClick: clearResult },
+                    {
+                        title: "Image",
+                        value: "image",
+                        handleClick: clearResult,
+                    },
                 ]}
                 selected={type}
                 setSelected={setType}
-                handleClick={clearResult}
             />
             <form
                 className="flex flex-col gap-2"
