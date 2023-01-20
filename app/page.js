@@ -90,6 +90,7 @@ export default function Page() {
                             register={register}
                             className="grow"
                             defaultValue={0.3}
+                            step="0.1"
                             type="number"
                         />
                         <Input
@@ -121,8 +122,16 @@ export default function Page() {
                         />
                     </div>
                 )}
-                <Input name="prompt" register={register} />
-                <button className="hidden" type="submit">
+                <textarea
+                    name="prompt"
+                    className="block w-full p-3 px-4 rounded-md bg-white/[.02] focus:bg-white/5 text-neutral-400 focus:ring-4 focus:outline-0 focus:ring-neutral-700 transition-all"
+                    {...register("prompt")}
+                />
+                {/*<Input name="prompt" register={register} />*/}
+                <button
+                    type="submit"
+                    className="block w-full p-3 px-4 rounded-md bg-white/[.02] focus:bg-white/5 text-neutral-400 focus:ring-4 focus:outline-0 focus:ring-neutral-700 transition-all"
+                >
                     Submit
                 </button>
             </form>{" "}
@@ -141,7 +150,7 @@ export default function Page() {
                             ))}
                         </div>
                     ) : (
-                        <p className="whitespace-pre">{status?.result}</p>
+                        <p className="whitespace-pre-line">{status?.result}</p>
                     )
                 ) : null}
             </div>
