@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useCallback } from "react"
+import { useState, useCallback, useEffect } from "react"
 import cn from "classnames"
 import { useForm } from "react-hook-form"
 import { Input } from "components/Input"
@@ -51,20 +51,19 @@ export default function Page() {
         [type]
     )
 
-    const clearResult = useCallback(() => {
+    useEffect(() => {
         setStatus((prev) => ({ ...prev, result: "" }))
-    }, [])
+    }, [type])
 
     return (
         <div className="max-w-screen-md mx-auto flex flex-col gap-4 p-6 py-20 lg:pt-64 min-h-screen">
             <Tabs
                 tabs={[
-                    { title: "Text", value: "text", handleClick: clearResult },
-                    { title: "Code", value: "code", handleClick: clearResult },
+                    { title: "Text", value: "text" },
+                    { title: "Code", value: "code" },
                     {
                         title: "Image",
                         value: "image",
-                        handleClick: clearResult,
                     },
                 ]}
                 selected={type}
