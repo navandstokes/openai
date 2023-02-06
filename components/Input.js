@@ -44,7 +44,7 @@ export const Input = ({
 		[ref, register]
 	)
 	return (
-		<div className="relative" style={style} className={className}>
+		<div style={style} className={cn("relative", className)}>
 			{title && (
 				<label htmlFor={name} className="block mb-1">
 					<span className="text-xs uppercase">{title}</span>
