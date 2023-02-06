@@ -10,15 +10,17 @@ import { Loader } from "components/Loader"
 export default function Page() {
     const { register, handleSubmit } = useForm()
     const [type, setType] = useState("text")
-    const [status, setStatus] = useState({ loading: false, result: "" })
+    const [status, setStatus] = useState({ loading: false })
+    const [result, setResult] = useState("")
 
     const onSubmit = useCallback(
         async (data) => {
-            setStatus((prev) => ({ ...prev, loading: true }))
+            setStatus({ loading: true })
+            setResult("")
             try {
                 const model = type == "code" ? "code-davinci-002" : null
                 const response = await fetch(
-                    type == "image" ? "/api/image" : "/api/generate",
+                    type == "image" ? "/api/image" : "/api/edge",
                     {
                         method: "POST",
                         headers: {
@@ -27,10 +29,10 @@ export default function Page() {
                         body: JSON.stringify({ model, ...data }),
                     }
                 )
-                const res = await response.json()
+                // const res = await response.json()
                 if (response.status !== 200) {
                     throw (
-                        res.error ||
+                        response.error ||
                         new Error(
                             `Request failed with status ${response.status}`
                         )
@@ -40,19 +42,36 @@ export default function Page() {
                 setStatus((prev) => ({
                     ...prev,
                     loading: false,
-                    result: res.result,
                 }))
+
+                if (type == "image") {
+                    const imageRes = await response.json()
+                    setResult(imageRes.result)
+                } else {
+                    const res = response.body
+
+                    const reader = res.getReader()
+                    const decoder = new TextDecoder()
+                    let done = false
+
+                    while (!done) {
+                        const { value, done: doneReading } = await reader.read()
+                        done = doneReading
+                        const chunkValue = decoder.decode(value)
+                        setResult((prev) => prev + chunkValue)
+                    }
+                }
             } catch (error) {
                 console.error(error)
                 setStatus((prev) => ({ ...prev, loading: false }))
                 alert(error.message)
             }
         },
-        [type]
+        [type, setResult]
     )
 
     useEffect(() => {
-        setStatus((prev) => ({ ...prev, result: "" }))
+        setResult("")
     }, [type])
 
     return (
@@ -133,23 +152,25 @@ export default function Page() {
                 >
                     Submit
                 </button>
-            </form>{" "}
+            </form>
             <div
                 className={cn("p-3 px-4 rounded-md bg-white/[.02]", {
-                    hidden: !status.loading && !status.result,
+                    hidden: !status.loading && !result,
                 })}
             >
                 {status?.loading ? (
                     <Loader />
-                ) : status?.result ? (
-                    type == "image" && typeof status.result == "object" ? (
+                ) : result ? (
+                    type == "image" && typeof result == "object" ? (
                         <div className="grid auto-cols-auto grid-flow-col">
-                            {status.result.map((i) => (
+                            {result.map((i) => (
                                 <img src={i?.url} key={i.url} />
                             ))}
                         </div>
                     ) : (
-                        <p className="whitespace-pre-line">{status?.result}</p>
+                        typeof result == "string" && (
+                            <p className="whitespace-pre-line">{result}</p>
+                        )
                     )
                 ) : null}
             </div>
