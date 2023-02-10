@@ -5,7 +5,7 @@ export const Tabs = ({ tabs, selected, setSelected, className }) => {
 	return (
 		<nav
 			className={cn(
-				"rounded-full overflow-hidden divide-x-2 divide-white/[.01] inline-flex",
+				"overflow-hidden divide-x-2 divide-white/[.01] inline-flex",
 				className
 			)}
 		>
@@ -35,7 +35,7 @@ const Tab = ({ title, value, selected, setSelected, handleClick }) => {
 			<button
 				onClick={handleState}
 				className={cn(
-					"px-4 font-semibold leading-loose -m-px py-2 transition-colors",
+					"first:rounded-l-full last:rounded-r-full first:pl-6 last:pr-6 px-4 font-semibold leading-loose -m-px py-2 transition-colors",
 					{
 						"bg-white/5 cursor-default": value == selected,
 						"opacity-50 hover:opacity-100 bg-white/[.02]":
